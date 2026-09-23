@@ -1,6 +1,6 @@
 name: arcane_lexicon
 description: Transform markdown directories into documentation websites with generated navigation, search, theming, and rich markdown components. Built on Jaspr.
-version: 2.0.0
+version: 3.0.0
 repository: https://github.com/ArcaneArts/arcane_lexicon
 homepage: https://github.com/ArcaneArts/arcane_lexicon
 documentation: https://github.com/ArcaneArts/arcane_lexicon#readme
@@ -22,7 +22,7 @@ dependencies:
   jaspr: ^0.23.1
   jaspr_content: ^0.5.2
   jaspr_lucide: ^0.55.0
-  arcane_jaspr: ^4.0.0
+  arcane_jaspr: ^5.0.0
 
   yaml: ^3.1.3
   json5: ^0.8.2
