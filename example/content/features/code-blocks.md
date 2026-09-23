@@ -19,6 +19,9 @@ Code blocks are automatically syntax highlighted using Highlight.js. Hover over 
 ## Dart
 
 ```dart
+import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr/html.dart' show ArcaneDiv;
+
 class Example extends StatelessWidget {
   final String title;
 
@@ -26,7 +29,7 @@ class Example extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ArcaneDiv(
-    classes: 'example',
+    classes: const <String>['example'],
     children: [Text(title)],
   );
 }

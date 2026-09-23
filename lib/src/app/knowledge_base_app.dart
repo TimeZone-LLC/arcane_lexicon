@@ -348,10 +348,8 @@ class KnowledgeBaseApp {
 class _FilteredFilesystemLoader extends FilesystemLoader {
   final Set<String> ignoredSourcePaths;
 
-  _FilteredFilesystemLoader(
-    super.directory, {
-    required this.ignoredSourcePaths,
-  });
+  _FilteredFilesystemLoader(super.directory, {required this.ignoredSourcePaths})
+    : super(filterExtensions: const <String>{'.md'});
 
   @override
   Future<List<FilePageSource>> loadPageSources() async {

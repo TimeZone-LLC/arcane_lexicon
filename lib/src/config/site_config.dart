@@ -1,7 +1,7 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:arcane_lexicon/src/layout/kb_renderers.dart';
 
-/// Base URL from environment, set via `--define=BASE_URL=/path`.
+/// Base URL from environment, set via `--dart-define=BASE_URL=/path`.
 const String _envBaseUrl = String.fromEnvironment('BASE_URL');
 
 /// Configuration for the knowledge base site.

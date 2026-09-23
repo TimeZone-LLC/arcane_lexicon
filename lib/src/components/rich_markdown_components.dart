@@ -1254,7 +1254,7 @@ class _KBRichParsers {
       return '';
     }
     if (component is Text) {
-      return component.text;
+      return component.data;
     }
     dynamic dynamicWidget = component;
     try {

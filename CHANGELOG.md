@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [x.x.x]
+
+### Changed
+
+- Markdown text extraction reads Arcane Jaspr's Flutter-style `Text.data` property.
+- The themed page state reads `widget`, and navigation layouts use numeric
+  `spacing` while retaining their stretched columns.
+- Setup examples resolve Arcane Jaspr and their renderer from the same local
+  checkout and explain the consuming site's required core override.
+
+### Fixed
+
+- Long linked headings wrap on narrow screens while their anchor links remain visible.
+- Component snippets use the current button, rating, and related-page APIs.
+- Build commands use Jaspr's `--dart-define` option.
+- Route loading filters to Markdown before decoding files, so binary images and
+  macOS metadata in the content directory do not break static builds.
+- Render contracts mount an Arcane theme provider and require published navigation
+  labels to render.
+- The example font stacks include system fallbacks, and starter CSS defines font
+  tokens without circular references through Arcane aliases.
+- The example dependency helper includes its knowledge-base and NeuBrutalism
+  packages when selecting remote dependencies.
+
 ## [2.0.0] - 2026-08-31
 
 ### Added

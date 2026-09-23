@@ -145,7 +145,7 @@ SocialLink.youtube('https://youtube.com/@arcanearts')
 `baseUrl` defaults to `BASE_URL` from build defines:
 
 ```bash
-jaspr build --define=BASE_URL=/docs
+jaspr build --dart-define=BASE_URL=/docs
 ```
 
 This keeps one config working for both local root hosting and deployed subpath hosting.

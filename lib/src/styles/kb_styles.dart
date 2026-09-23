@@ -2561,6 +2561,15 @@ a.kb-banner:hover {
   --content-th-borders: var(--border);
   --content-td-borders: var(--border);
 }
+
+#arcane-root .content :is(h1, h2, h3, h4, h5, h6)[anchor] > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#arcane-root .content :is(h1, h2, h3, h4, h5, h6)[anchor] > a {
+  flex-shrink: 0;
+}
 ''';
 
   static const String _lightThemeReadability = '''

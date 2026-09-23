@@ -325,7 +325,7 @@ Edit <FilePath>content/reference/components.md</FilePath> before rebuilding.
 jaspr serve
 ```
 ```bash
-jaspr build --define=BASE_URL=/docs
+jaspr build --dart-define=BASE_URL=/docs
 ```
 </CodeGroup>
 ````
@@ -335,7 +335,7 @@ jaspr build --define=BASE_URL=/docs
 jaspr serve
 ```
 ```bash
-jaspr build --define=BASE_URL=/docs
+jaspr build --dart-define=BASE_URL=/docs
 ```
 </CodeGroup>
 
@@ -454,7 +454,6 @@ KBSidebar(
 KBTopBar(
   config: config,
   currentPath: '/reference/components',
-  showThemeToggle: true,
 )
 ```
 
@@ -469,7 +468,7 @@ Thumbs up/down rating block controlled by:
 ```dart
 KBRating(
   pagePath: '/reference/components',
-  config: KBRatingConfig(
+  config: RatingConfig(
     promptText: config.ratingPromptText,
     thankYouText: config.ratingThankYouText,
   ),
@@ -481,7 +480,7 @@ KBRating(
 Renderable timeline view for parsed changelog entries.
 
 ```dart
-final ChangelogParser parser = ChangelogParser();
+const ChangelogParser parser = ChangelogParser();
 final List<ChangelogVersion> versions = parser.parse(changelogMarkdown);
 
 KBChangelog(
@@ -502,6 +501,7 @@ These are not auto-injected by the default layout; use them explicitly in custom
 
 ```dart
 KBSubpages(
+  config: config,
   manifest: manifest,
   currentPath: '/guide',
 )
@@ -509,8 +509,10 @@ KBSubpages(
 
 ```dart
 KBRelatedPages(
-  allPages: pages,
+  config: config,
+  manifest: manifest,
   currentPath: '/guide/basics/configuration',
+  currentTags: const <String>['configuration'],
 )
 ```
 
@@ -525,8 +527,8 @@ KnowledgeBaseApp.create(
   demoBuilder: (String componentType) {
     if (componentType == 'ButtonDemo') {
       return Button(
+        label: 'Demo',
         onPressed: () {},
-        child: const Text('Demo'),
       );
     }
     return null;

@@ -11,15 +11,18 @@ date: 2025-01-11
 
 ```bash
 cd your-project
-dart ../tool/arcane_lexicon_demo.dart
+dart run arcane_lexicon serve
 ```
 
-Visit http://localhost:8081
+Visit http://localhost:8081. The generated starter includes `jaspr_cli`.
+
+From the Lexicon repository, run `dart tool/arcane_lexicon_demo.dart` to
+serve the bundled example.
 
 ## Production Build
 
 ```bash
-jaspr build
+dart run arcane_lexicon build
 ```
 
 ## With Base URL
@@ -27,7 +30,7 @@ jaspr build
 For subdirectory hosting (e.g., GitHub Pages):
 
 ```bash
-jaspr build --define=BASE_URL=/my-docs
+dart run arcane_lexicon build --dart-define=BASE_URL=/my-docs
 ```
 
 ---

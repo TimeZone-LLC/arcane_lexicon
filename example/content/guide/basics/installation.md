@@ -9,14 +9,25 @@ date: 2025-01-11
 
 Notice the **breadcrumbs** above the title showing: Guide > Basics > Installation
 
-## Add Dependency
+## Add Dependencies
+
+With your site beside local `arcane_lexicon` and `arcane_jaspr` checkouts:
 
 ```yaml
 dependencies:
+  jaspr: ^0.23.1
   arcane_lexicon:
-    git:
-      url: https://github.com/ArcaneArts/arcane_lexicon
+    path: ../arcane_lexicon
+  arcane_jaspr_shadcn:
+    path: ../arcane_jaspr/packages/arcane_jaspr_shadcn
+
+dependency_overrides:
+  arcane_jaspr:
+    path: ../arcane_jaspr
 ```
+
+Resolve the core and renderer from the same checkout. The site must declare its
+own override because dependency overrides do not propagate from Lexicon.
 
 ## Install
 

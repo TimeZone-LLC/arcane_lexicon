@@ -1,11 +1,10 @@
 :root {
-  --font-sans: 'Akzidenz-GroteskPro';
-  --font-heading: 'ITCAvantGardeStd';
-  --font-mono: 'Hack';
+  --font-sans: 'Akzidenz-GroteskPro', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'ITCAvantGardeStd', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Hack', ui-monospace, 'SFMono-Regular', 'Cascadia Code', monospace;
 }
 
-/* jaspr_content defines its own typography tokens after theme CSS. Keep
-   rendered articles on the font families bundled with Arcane. */
+/* Keep article typography on the site font stacks. */
 #arcane-root {
   --content-font: var(--font-sans);
   --content-code-font: var(--font-mono);

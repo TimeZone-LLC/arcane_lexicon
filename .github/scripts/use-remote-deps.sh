@@ -17,4 +17,14 @@ dependency_overrides:
     git:
       url: https://github.com/ArcaneArts/arcane_jaspr.git
       path: packages/arcane_jaspr_neon
+  arcane_jaspr_neubrutalism:
+    git:
+      url: https://github.com/ArcaneArts/arcane_jaspr.git
+      path: packages/arcane_jaspr_neubrutalism
+  arcane_jaspr_kb:
+    git:
+      url: https://github.com/ArcaneArts/arcane_jaspr.git
+      path: packages/arcane_jaspr_kb
+  arcane_lexicon:
+    path: ../
 YAML

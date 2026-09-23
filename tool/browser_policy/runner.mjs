@@ -81,6 +81,9 @@ async function verifyDeploymentAssets(page) {
     );
     return {
       basePath: new URL(document.baseURI).pathname,
+      bodyFont: getComputedStyle(document.querySelector('#arcane-root')).fontFamily,
+      codeFont: getComputedStyle(document.querySelector('#arcane-root'))
+        .getPropertyValue('--font-mono'),
       clientReady:
         document.documentElement.getAttribute('data-arcane-client-ready'),
       fontUrls,
@@ -92,6 +95,12 @@ async function verifyDeploymentAssets(page) {
     failures.push(
       `deployment base is ${result.basePath}; expected ${expectedBasePath}`,
     );
+  }
+  if (!/sans-serif|system-ui/.test(result.bodyFont)) {
+    failures.push(`body font has no system fallback: ${result.bodyFont}`);
+  }
+  if (!/monospace/.test(result.codeFont)) {
+    failures.push(`code font has no monospace fallback: ${result.codeFont}`);
   }
   if (result.clientReady !== 'true') {
     failures.push('compiled client did not publish its hydration marker');

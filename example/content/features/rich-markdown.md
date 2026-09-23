@@ -128,7 +128,7 @@ This page renders the default rich markdown component set that Arcane Lexicon re
 jaspr serve
 ```
 ```bash
-jaspr build --define=BASE_URL=/docs
+jaspr build --dart-define=BASE_URL=/docs
 ```
 </CodeGroup>
 

@@ -464,28 +464,28 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
   @override
   void initState() {
     super.initState();
-    _isDark = component.config.defaultTheme != KBThemeMode.light;
+    _isDark = widget.config.defaultTheme != KBThemeMode.light;
   }
 
   @override
   Widget build(BuildContext context) {
-    String activeStylesheetId = component.stylesheetOptions.isEmpty
+    String activeStylesheetId = widget.stylesheetOptions.isEmpty
         ? ''
         : _activeStylesheetId();
-    String activePaletteId = component.stylesheetOptions.isEmpty
+    String activePaletteId = widget.stylesheetOptions.isEmpty
         ? ''
         : _activePaletteId(activeStylesheetId);
     String themeClass = _isDark ? 'dark' : '';
-    String? stylesheetClass = component.stylesheetOptions.isEmpty
-        ? component.stylesheet.bodyClass
+    String? stylesheetClass = widget.stylesheetOptions.isEmpty
+        ? widget.stylesheet.bodyClass
         : _activePaletteBodyClass(activeStylesheetId, activePaletteId);
-    String? stylesheetOptionClass = component.stylesheetOptions.isEmpty
+    String? stylesheetOptionClass = widget.stylesheetOptions.isEmpty
         ? null
         : 'kb-style-$activeStylesheetId';
-    String themeIdentityClass = component.stylesheetOptions.isEmpty
-        ? 'arcane-theme-${component.stylesheet.id}'
+    String themeIdentityClass = widget.stylesheetOptions.isEmpty
+        ? 'arcane-theme-${widget.stylesheet.id}'
         : 'arcane-theme-$activeStylesheetId';
-    String? paletteOptionClass = component.stylesheetOptions.isEmpty
+    String? paletteOptionClass = widget.stylesheetOptions.isEmpty
         ? null
         : 'kb-palette-$activePaletteId';
     String rootClasses = [
@@ -497,7 +497,7 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
     ].where((String? c) => c != null && c.isNotEmpty).join(' ');
 
     return ArcaneThemeProvider(
-      stylesheet: component.stylesheet,
+      stylesheet: widget.stylesheet,
       brightness: _isDark ? Brightness.dark : Brightness.light,
       child: ArcaneDiv(
         id: 'arcane-root',
@@ -510,7 +510,7 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
         ),
         attributes: <String, String>{
           'data-arcane-theme': activeStylesheetId.isEmpty
-              ? component.stylesheet.id
+              ? widget.stylesheet.id
               : activeStylesheetId,
           if (activePaletteId.isNotEmpty)
             'data-arcane-palette': activePaletteId,
@@ -527,10 +527,8 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
       // so its one synthesized slot must always be active (otherwise the whole
       // page renders hidden).
       bool active = options.length == 1 || option.id == activeStylesheetId;
-      // Theme-specific renderers now live in their theme packages
-      // (arcane_jaspr_shadcn / _neon / _neubrutalism / _win95) and are passed
-      // explicitly via KBStylesheetOption.knowledgeBaseRenderers. Anything that
-      // does not supply one falls back to the default docs chrome.
+      // Theme-specific docs renderers come from arcane_jaspr_kb; options
+      // without one use the default docs chrome.
       KnowledgeBaseRenderers renderers =
           option.knowledgeBaseRenderers ??
           const DefaultKnowledgeBaseRenderers();
@@ -557,92 +555,92 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
   }
 
   Widget _buildPageLayoutFor(KnowledgeBaseRenderers renderers) {
-    bool showNavigationBar = component.config.navigationBarEnabled;
+    bool showNavigationBar = widget.config.navigationBarEnabled;
     bool useTopPosition =
-        component.config.navigationBarPosition == KBNavigationBarPosition.top;
+        widget.config.navigationBarPosition == KBNavigationBarPosition.top;
     bool showSidebarControls = !showNavigationBar;
     String sidebarTopOffset = showNavigationBar && useTopPosition
         ? '56px'
         : '0px';
-    String activeStylesheetId = component.stylesheetOptions.isEmpty
+    String activeStylesheetId = widget.stylesheetOptions.isEmpty
         ? ''
         : _activeStylesheetId();
-    String activePaletteId = component.stylesheetOptions.isEmpty
+    String activePaletteId = widget.stylesheetOptions.isEmpty
         ? ''
         : _activePaletteId(activeStylesheetId);
 
     return renderers.shell(
       KnowledgeBaseRenderData(
-        config: component.config,
-        manifest: component.manifest,
-        stylesheetOptions: component.stylesheetOptions,
+        config: widget.config,
+        manifest: widget.manifest,
+        stylesheetOptions: widget.stylesheetOptions,
         activeStylesheetId: activeStylesheetId,
         activePaletteId: activePaletteId,
-        currentPath: component.currentPath,
-        title: component.title,
-        description: component.description,
-        toc: component.toc,
-        tags: component.tags,
-        readingTime: component.readingTime,
-        author: component.author,
-        date: component.date,
-        lastModified: component.lastModified,
-        landing: component.landing,
+        currentPath: widget.currentPath,
+        title: widget.title,
+        description: widget.description,
+        toc: widget.toc,
+        tags: widget.tags,
+        readingTime: widget.readingTime,
+        author: widget.author,
+        date: widget.date,
+        lastModified: widget.lastModified,
+        landing: widget.landing,
         showNavigationBar: showNavigationBar,
         useTopPosition: useTopPosition,
         showSidebarControls: showSidebarControls,
         sidebarTopOffset: sidebarTopOffset,
         showPageNav: _showPageNav(),
         demoWidget: _buildDemoWidget(),
-        content: component.content,
+        content: widget.content,
       ),
     );
   }
 
   List<KBStylesheetOption> _effectiveStylesheetOptions() {
-    if (component.stylesheetOptions.isNotEmpty) {
-      return component.stylesheetOptions;
+    if (widget.stylesheetOptions.isNotEmpty) {
+      return widget.stylesheetOptions;
     }
     return <KBStylesheetOption>[
       KBStylesheetOption(
         id: 'default',
         label: 'Default',
-        stylesheet: component.stylesheet,
+        stylesheet: widget.stylesheet,
       ),
     ];
   }
 
   Widget? _buildDemoWidget() {
-    if (component.componentType != null && component.demoBuilder != null) {
-      return component.demoBuilder!(component.componentType!);
+    if (widget.componentType != null && widget.demoBuilder != null) {
+      return widget.demoBuilder!(widget.componentType!);
     }
     return null;
   }
 
   bool _showPageNav() {
-    bool? pageOverride = component.pageNavOverride;
+    bool? pageOverride = widget.pageNavOverride;
     if (pageOverride != null) {
       return pageOverride;
     }
-    return component.config.pageNavEnabled;
+    return widget.config.pageNavEnabled;
   }
 
   String _activeStylesheetId() {
-    for (KBStylesheetOption option in component.stylesheetOptions) {
-      if (identical(option.stylesheet, component.stylesheet)) {
+    for (KBStylesheetOption option in widget.stylesheetOptions) {
+      if (identical(option.stylesheet, widget.stylesheet)) {
         return option.id;
       }
       for (KBPaletteOption palette in option.palettes) {
-        if (identical(palette.stylesheet, component.stylesheet)) {
+        if (identical(palette.stylesheet, widget.stylesheet)) {
           return option.id;
         }
       }
     }
-    return component.stylesheetOptions.first.id;
+    return widget.stylesheetOptions.first.id;
   }
 
   String _activePaletteId(String activeStylesheetId) {
-    for (KBStylesheetOption option in component.stylesheetOptions) {
+    for (KBStylesheetOption option in widget.stylesheetOptions) {
       if (option.id != activeStylesheetId) {
         continue;
       }
@@ -650,7 +648,7 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
         return _PaletteEntry.defaultId;
       }
       for (KBPaletteOption palette in option.palettes) {
-        if (identical(palette.stylesheet, component.stylesheet)) {
+        if (identical(palette.stylesheet, widget.stylesheet)) {
           return palette.id;
         }
       }
@@ -663,7 +661,7 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
     String activeStylesheetId,
     String activePaletteId,
   ) {
-    for (KBStylesheetOption option in component.stylesheetOptions) {
+    for (KBStylesheetOption option in widget.stylesheetOptions) {
       if (option.id != activeStylesheetId) {
         continue;
       }
@@ -677,12 +675,12 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
       }
       return option.stylesheet.bodyClass;
     }
-    return component.stylesheet.bodyClass;
+    return widget.stylesheet.bodyClass;
   }
 
   /// JavaScript for static site functionality
   Iterable<Widget> _buildScripts() sync* {
-    yield script(content: component.scripts.generate());
+    yield script(content: widget.scripts.generate());
     // Component interactivity scripts from arcane_jaspr
     yield const ArcaneScriptsComponent();
   }

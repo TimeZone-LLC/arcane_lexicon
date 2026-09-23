@@ -70,24 +70,27 @@ arcane_lexicon doctor
 
 ## Manual Setup
 
-If you prefer wiring the app yourself, add the dependency:
+For local development, keep the site, `arcane_lexicon`, and `arcane_jaspr`
+checkouts in the same parent directory. Resolve the core and renderer from that
+same Arcane Jaspr checkout:
 
 ```yaml
 dependencies:
   jaspr: ^0.23.1
   arcane_lexicon:
-    git:
-      url: https://github.com/ArcaneArts/arcane_lexicon
+    path: ../arcane_lexicon
   arcane_jaspr_shadcn:
-    git:
-      url: https://github.com/ArcaneArts/arcane_jaspr.git
-      path: packages/arcane_jaspr_shadcn
+    path: ../arcane_jaspr/packages/arcane_jaspr_shadcn
 
 dependency_overrides:
   arcane_jaspr:
-    git:
-      url: https://github.com/ArcaneArts/arcane_jaspr.git
+    path: ../arcane_jaspr
 ```
+
+The CLI starter uses Git dependencies. Apply these local paths to its generated
+`pubspec.yaml` when working against an unreleased checkout. A dependency override
+inside Lexicon does not propagate to a consuming site; declare the core override
+in the site's own pubspec.
 
 Then create a Jaspr server entrypoint:
 

@@ -87,10 +87,11 @@ class KBPageNav extends StatelessWidget {
                   textDecoration: TextDecoration.none,
                 ),
                 child: Column(
-                  gapSize: Gap.xs,
+                  spacing: 4,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
-                      gapSize: Gap.xs,
+                      spacing: 4,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         KBIcon.build('arrow-left', size: IconSize.sm),
@@ -136,11 +137,11 @@ class KBPageNav extends StatelessWidget {
                   textDecoration: TextDecoration.none,
                 ),
                 child: Column(
-                  gapSize: Gap.xs,
+                  spacing: 4,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
-                      gapSize: Gap.xs,
+                      spacing: 4,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const ArcaneDiv(
@@ -265,7 +266,7 @@ class KBSubpages extends StatelessWidget {
                   textDecoration: TextDecoration.none,
                 ),
                 child: Row(
-                  gapSize: Gap.md,
+                  spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (item.icon != null)
@@ -312,7 +313,7 @@ class KBSubpages extends StatelessWidget {
                   textDecoration: TextDecoration.none,
                 ),
                 child: Row(
-                  gapSize: Gap.md,
+                  spacing: 16,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     if (section.icon != null)

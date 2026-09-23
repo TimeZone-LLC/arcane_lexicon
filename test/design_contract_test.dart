@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 import 'package:arcane_lexicon/arcane_lexicon.dart';
 import 'package:arcane_lexicon/src/icons/kb_icon.dart';
 import 'package:jaspr/server.dart' show Jaspr, ResponseLike, renderComponent;
@@ -117,32 +118,32 @@ void main() {
     });
 
     test('implicit rich components do not invent icons', () async {
-      final ResponseLike cardResponse = await renderComponent(
+      final ResponseLike cardResponse = await _renderThemed(
         const KBCardComponent().apply('Card', <String, String>{
           'title': 'Guide',
           'href': '/guide',
         }, const Text('Read the guide')),
         standalone: true,
       );
-      final ResponseLike tileResponse = await renderComponent(
+      final ResponseLike tileResponse = await _renderThemed(
         const KBTileComponent().apply('Tile', <String, String>{
           'title': 'Status',
         }, const Text('Ready')),
         standalone: true,
       );
-      final ResponseLike viewResponse = await renderComponent(
+      final ResponseLike viewResponse = await _renderThemed(
         const KBViewComponent().apply('View', <String, String>{
           'title': 'Output',
         }, const Text('Ready')),
         standalone: true,
       );
-      final ResponseLike panelResponse = await renderComponent(
+      final ResponseLike panelResponse = await _renderThemed(
         const KBPanelComponent().apply('Panel', <String, String>{
           'title': 'Status',
         }, const Text('Ready')),
         standalone: true,
       );
-      final ResponseLike iconResponse = await renderComponent(
+      final ResponseLike iconResponse = await _renderThemed(
         const KBIconComponent().apply('Icon', const <String, String>{}, null),
         standalone: true,
       );
@@ -164,7 +165,7 @@ void main() {
     });
 
     test('rich components render only explicitly requested icons', () async {
-      final ResponseLike cardResponse = await renderComponent(
+      final ResponseLike cardResponse = await _renderThemed(
         const KBCardComponent().apply('Card', <String, String>{
           'title': 'Guide',
           'href': '/guide',
@@ -172,14 +173,14 @@ void main() {
         }, const Text('Read the guide')),
         standalone: true,
       );
-      final ResponseLike tileResponse = await renderComponent(
+      final ResponseLike tileResponse = await _renderThemed(
         const KBTileComponent().apply('Tile', <String, String>{
           'title': 'Status',
           'icon': 'activity',
         }, const Text('Ready')),
         standalone: true,
       );
-      final ResponseLike viewResponse = await renderComponent(
+      final ResponseLike viewResponse = await _renderThemed(
         const KBViewComponent().apply('View', <String, String>{
           'title': 'Output',
           'icon': 'terminal',
@@ -198,13 +199,13 @@ void main() {
     });
 
     test('rich components use typed styles and fixed column classes', () async {
-      final ResponseLike columnsResponse = await renderComponent(
+      final ResponseLike columnsResponse = await _renderThemed(
         const KBColumnsComponent().apply('Columns', <String, String>{
           'cols': '4',
         }, const Text('Columns')),
         standalone: true,
       );
-      final ResponseLike colorResponse = await renderComponent(
+      final ResponseLike colorResponse = await _renderThemed(
         const KBColorItemComponent().apply('Color.Item', <String, String>{
           'label': 'Brand',
           'value': '#123456',
@@ -227,7 +228,7 @@ void main() {
       expect(css, isNot(contains('--kb-columns')));
     });
 
-    test('draft and hidden content never become routes', () async {
+    test('routes include only published Markdown files', () async {
       final Directory contentDirectory = await Directory.systemTemp.createTemp(
         'arcane-lexicon-routes-',
       );
@@ -241,6 +242,16 @@ void main() {
       await File(
         '${contentDirectory.path}/hidden.md',
       ).writeAsString('---\ntitle: Hidden\nhidden: true\n---\n# Hidden\n');
+
+      await File(
+        '${contentDirectory.path}/.DS_Store',
+      ).writeAsBytes(<int>[0xff, 0xfe, 0x00]);
+      await File(
+        '${contentDirectory.path}/diagram.png',
+      ).writeAsBytes(<int>[0x89, 0x50, 0x4e, 0x47]);
+      await File(
+        '${contentDirectory.path}/notes.txt',
+      ).writeAsString('These notes are not a documentation page.');
 
       final ContentApp app = await KnowledgeBaseApp.create(
         config: SiteConfig(
@@ -303,7 +314,7 @@ void main() {
       expect(jsonEncode(manifest.toJson()), isNot(contains('/draft')));
       expect(jsonEncode(manifest.toJson()), isNot(contains('/hidden')));
 
-      final ResponseLike pageNavResponse = await renderComponent(
+      final ResponseLike pageNavResponse = await _renderThemed(
         const KBPageNav(
           config: SiteConfig(name: 'Published-only test'),
           manifest: manifest,
@@ -311,7 +322,7 @@ void main() {
         ),
         standalone: true,
       );
-      final ResponseLike relatedResponse = await renderComponent(
+      final ResponseLike relatedResponse = await _renderThemed(
         const KBRelatedPages(
           config: SiteConfig(name: 'Published-only test'),
           manifest: manifest,
@@ -326,12 +337,14 @@ void main() {
       ].map((ResponseLike response) => utf8.decode(response.body)).join();
 
       expect(html, contains('href="/published"'));
+      expect(utf8.decode(pageNavResponse.body), contains('Published'));
+      expect(utf8.decode(relatedResponse.body), contains('Published'));
       expect(html, isNot(contains('href="/draft"')));
       expect(html, isNot(contains('href="/hidden"')));
     });
 
     test('tree folder summaries render at most one icon', () async {
-      final ResponseLike response = await renderComponent(
+      final ResponseLike response = await _renderThemed(
         const KBTreeFolderComponent().apply('Tree.Folder', <String, String>{
           'name': 'content',
         }, null),
@@ -373,7 +386,7 @@ void main() {
         ),
       );
 
-      final ResponseLike response = await renderComponent(
+      final ResponseLike response = await _renderThemed(
         KBIcon.build('rocket', classes: 'sidebar-icon'),
         standalone: true,
       );
@@ -463,7 +476,7 @@ void main() {
         sections: <NavSection>[],
       );
       final List<ResponseLike> responses = <ResponseLike>[
-        await renderComponent(
+        await _renderThemed(
           const KBPageNav(
             config: SiteConfig(name: 'Divider test'),
             manifest: manifest,
@@ -471,7 +484,7 @@ void main() {
           ),
           standalone: true,
         ),
-        await renderComponent(
+        await _renderThemed(
           const KBChangelog(
             versions: <ChangelogVersion>[
               ChangelogVersion(
@@ -484,7 +497,7 @@ void main() {
           ),
           standalone: true,
         ),
-        await renderComponent(
+        await _renderThemed(
           const KBRating(pagePath: '/current'),
           standalone: true,
         ),
@@ -518,7 +531,7 @@ void main() {
     });
 
     test('interactive hidden states remain semantic and effect-free', () async {
-      final ResponseLike searchResponse = await renderComponent(
+      final ResponseLike searchResponse = await _renderThemed(
         const DefaultKnowledgeBaseRenderers().searchBox(),
         standalone: true,
       );
@@ -687,4 +700,11 @@ class _TestStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get lightSeed => throw UnsupportedError('Not rendered');
+}
+
+Future<ResponseLike> _renderThemed(Widget child, {bool standalone = false}) {
+  return renderComponent(
+    ArcaneThemeProvider(stylesheet: const ShadcnStylesheet(), child: child),
+    standalone: standalone,
+  );
 }

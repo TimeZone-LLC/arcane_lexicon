@@ -535,8 +535,9 @@ Create a folder with its own `_section.json5` file to make a nested section.
 ''';
 
   String _styles() => ''':root {
-  --font-sans: var(--arcane-font-sans, ui-sans-serif, system-ui, sans-serif);
-  --font-mono: var(--arcane-font-mono, 'SFMono-Regular', 'Cascadia Code', 'Roboto Mono', monospace);
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Code', monospace;
 }
 
 *, *::before, *::after {

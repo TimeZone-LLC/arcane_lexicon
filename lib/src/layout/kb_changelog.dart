@@ -82,7 +82,7 @@ class KBChangelog extends StatelessWidget {
                   textDecoration: TextDecoration.none,
                 ),
                 child: Row(
-                  gapSize: Gap.xs,
+                  spacing: 4,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ArcaneIcon.externalLink(size: IconSize.xs),

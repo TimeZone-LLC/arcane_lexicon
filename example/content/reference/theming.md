@@ -16,15 +16,16 @@ Arcane Lexicon uses the arcane_jaspr stylesheet system for theming. Swap themes 
 ## Basic Usage
 
 ```dart
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 import 'package:arcane_lexicon/arcane_lexicon.dart' hide runApp;
+import 'package:jaspr/server.dart';
 
-void main() async {
-  Jaspr.initializeApp(options: defaultServerOptions);
+Future<void> main() async {
+  Jaspr.initializeApp();
 
   runApp(
     await KnowledgeBaseApp.create(
       config: const SiteConfig(name: 'My Docs'),
-      // Single line theming:
       stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
     ),
   );
@@ -201,7 +202,7 @@ Add custom styles via a `/styles.css` file in your web directory:
 
 ## CSS Variables
 
-Both stylesheets expose CSS variables for customization:
+The stylesheets expose CSS variables for customization:
 
 ### Colors
 
@@ -235,7 +236,7 @@ Both stylesheets expose CSS variables for customization:
 
 ## Dark Mode Classes
 
-Both themes add a `.dark` class to the root element in dark mode:
+The themes add a `.dark` class to the root element in dark mode:
 
 ```css
 /* Light mode styles */

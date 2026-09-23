@@ -119,7 +119,8 @@ class KBRelatedPages extends StatelessWidget {
         textDecoration: TextDecoration.none,
       ),
       child: Column(
-        gapSize: Gap.xs,
+        spacing: 4,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ArcaneDiv(
             styles: const ArcaneStyleData(
