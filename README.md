@@ -2,7 +2,7 @@
 
 Transform markdown directories into documentation websites with generated navigation, search, theming, and rich markdown components. Built on Jaspr.
 
-**[Live Demo](https://arcanearts.github.io/arcane_lexicon/)** | **[GitHub](https://github.com/ArcaneArts/arcane_lexicon)**
+**[Live Demo](https://timezone-llc.github.io/arcane_lexicon/)** | **[GitHub](https://github.com/ArcaneArts/arcane_lexicon)**
 
 ## Fastest Start
 

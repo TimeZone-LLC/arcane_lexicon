@@ -11,6 +11,12 @@ on:
       - 'pubspec.yaml'
       - '.github/workflows/deploy.yml'
       - '.github/scripts/**'
+  # Sent by the arcane_jaspr docs deploy so this site tracks arcane_jaspr master.
+  repository_dispatch:
+    types: [arcane-jaspr-updated]
+  # Weekly rebuild against arcane_jaspr master in case a dispatch is missed.
+  schedule:
+    - cron: '17 6 * * 1'
   workflow_dispatch:
 
 permissions:
