@@ -2,6 +2,7 @@ library;
 
 import 'dart:io';
 
+import 'package:arcane_jaspr_ascii/arcane_jaspr_ascii.dart';
 import 'package:arcane_jaspr_kb/arcane_jaspr_kb.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
@@ -58,6 +59,11 @@ const ArcaneStylesheet neubrutalismRed = NeubrutalismStylesheet(
 
 const ArcaneStylesheet selectedStylesheet = neonStylesheet;
 const List<KBStylesheetOption> stylesheetOptions = <KBStylesheetOption>[
+  KBStylesheetOption(
+    id: 'ascii',
+    label: 'Ascii',
+    stylesheet: AsciiStylesheet(),
+  ),
   KBStylesheetOption(
     id: 'shadcn',
     label: 'Shadcn',

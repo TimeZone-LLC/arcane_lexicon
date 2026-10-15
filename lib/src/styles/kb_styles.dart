@@ -2258,6 +2258,11 @@ a.kb-banner:hover {
   max-width: none;
 }
 
+.kb-landing-prose > .content {
+  width: 100%;
+  min-width: 0;
+}
+
 .kb-landing-prose > * + * {
   margin-top: 1.25rem;
 }

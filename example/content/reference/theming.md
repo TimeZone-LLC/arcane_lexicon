@@ -8,7 +8,7 @@ tags:
   - theming
   - styling
 author: Arcane Arts
-date: 2025-01-11
+date: 2026-10-15
 ---
 
 Arcane Lexicon uses the arcane_jaspr stylesheet system for theming. Swap themes with a single line of code.
@@ -33,6 +33,44 @@ Future<void> main() async {
 ```
 
 ## Available Stylesheets
+
+### AsciiStylesheet
+
+Ascii uses paper and ink palettes, monospaced labels, ruled datum lines, and
+character-based text motion. Its controls share the standard Arcane component
+API, and animations respect the system reduced-motion preference. Select
+Ascii in this site's stylesheet menu to preview it.
+
+Create a site with its dependencies already configured:
+
+```bash
+arcane_lexicon create my_docs --theme ascii
+```
+
+For an existing local project, add the renderer and its shared dependency:
+
+```yaml
+dependencies:
+  arcane_lexicon:
+    path: ../arcane_lexicon
+  arcane_jaspr_ascii:
+    path: ../arcane_jaspr/packages/arcane_jaspr_ascii
+
+dependency_overrides:
+  arcane_jaspr:
+    path: ../arcane_jaspr
+  arcane_jaspr_shadcn:
+    path: ../arcane_jaspr/packages/arcane_jaspr_shadcn
+```
+
+```dart
+import 'package:arcane_jaspr_ascii/arcane_jaspr_ascii.dart';
+
+KnowledgeBaseApp.create(
+  config: const SiteConfig(name: 'My Docs', themeToggleEnabled: true),
+  stylesheet: const AsciiStylesheet(),
+)
+```
 
 ### ShadcnStylesheet
 

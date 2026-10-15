@@ -216,9 +216,21 @@ class KBStylesheetOption {
     this.palettes = const <KBPaletteOption>[],
     this.knowledgeBaseRenderers,
   });
+
+  List<KBPaletteOption> get resolvedPalettes => palettes.isNotEmpty
+      ? palettes
+      : <KBPaletteOption>[
+          KBPaletteOption(
+            id: KBPaletteOption.defaultId,
+            label: label,
+            stylesheet: stylesheet,
+          ),
+        ];
 }
 
 class KBPaletteOption {
+  static const String defaultId = 'default';
+
   final String id;
   final String label;
   final ArcaneStylesheet stylesheet;

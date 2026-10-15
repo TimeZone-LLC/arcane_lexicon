@@ -460,7 +460,7 @@ document.addEventListener('change', function(e) {
     List<Map<String, Object>> options = stylesheetOptions.map((
       KBStylesheetOption option,
     ) {
-      List<Map<String, Object>> palettes = option.palettes.map((
+      List<Map<String, Object>> palettes = option.resolvedPalettes.map((
         KBPaletteOption palette,
       ) {
         String? bodyClass = palette.bodyClass ?? palette.stylesheet.bodyClass;
@@ -838,6 +838,7 @@ document.addEventListener('change', function(e) {
     normalizedBasePath = '';
   }
   var requestToken = 0;
+  var renderedHref = window.location.href;
   var homePath = normalizePath(normalizedBasePath || '/');
 
   function normalizePath(path) {
@@ -853,6 +854,19 @@ document.addEventListener('change', function(e) {
     if (link.getAttribute('data-kb-hard-nav') === 'true') return false;
     if (!link.closest('.kb-page-shell')) return false;
     return true;
+  }
+
+  function containsJasprClientIslands(pageDocument) {
+    if (!pageDocument.body) return false;
+    var comments = pageDocument.createTreeWalker(
+      pageDocument.body,
+      NodeFilter.SHOW_COMMENT,
+    );
+    var comment;
+    while ((comment = comments.nextNode())) {
+      if (comment.data.trim().startsWith('@')) return true;
+    }
+    return false;
   }
 
   function isNavigableUrl(url) {
@@ -918,7 +932,7 @@ document.addEventListener('change', function(e) {
       return;
     }
 
-    var current = new URL(window.location.href);
+    var current = new URL(renderedHref);
     var destinationPath = normalizePath(destination.pathname);
     var currentPath = normalizePath(current.pathname);
 
@@ -943,6 +957,12 @@ document.addEventListener('change', function(e) {
       } else if (pushHistory && destination.href !== window.location.href) {
         history.pushState({ href: destination.href }, '', destination.href);
       }
+      renderedHref = destination.href;
+      return;
+    }
+
+    if (containsJasprClientIslands(document)) {
+      window.location.assign(destination.href);
       return;
     }
 
@@ -957,6 +977,10 @@ document.addEventListener('change', function(e) {
 
         var parser = new DOMParser();
         var nextDocument = parser.parseFromString(html, 'text/html');
+        if (containsJasprClientIslands(nextDocument)) {
+          window.location.assign(destination.href);
+          return;
+        }
         if (!replaceStyleSlots(nextDocument)) {
           var nextMainArea = nextDocument.querySelector('.kb-main-area');
           var currentMainArea = document.querySelector('.kb-main-area');
@@ -993,6 +1017,7 @@ document.addEventListener('change', function(e) {
         if (pushHistory) {
           history.pushState({ href: destination.href }, '', destination.href);
         }
+        renderedHref = destination.href;
 
         if (!destination.hash) {
           window.scrollTo({ top: 0, behavior: 'auto' });

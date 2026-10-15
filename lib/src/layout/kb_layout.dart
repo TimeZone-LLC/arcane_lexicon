@@ -111,7 +111,7 @@ class KBLayout extends PageLayoutBase {
       );
     } else {
       for (KBStylesheetOption option in effectiveStylesheetOptions) {
-        for (_PaletteEntry palette in _palettesFor(option)) {
+        for (KBPaletteOption palette in option.resolvedPalettes) {
           bool isActive =
               option.id == activeStylesheetId && palette.id == activePaletteId;
           String rewrittenBaseCss = _rewriteAssetUrls(
@@ -152,7 +152,7 @@ class KBLayout extends PageLayoutBase {
       );
     } else {
       for (KBStylesheetOption option in effectiveStylesheetOptions) {
-        for (_PaletteEntry palette in _palettesFor(option)) {
+        for (KBPaletteOption palette in option.resolvedPalettes) {
           bool isActive =
               option.id == activeStylesheetId && palette.id == activePaletteId;
           String rewrittenWidgetCss = _rewriteAssetUrls(
@@ -300,38 +300,15 @@ class KBLayout extends PageLayoutBase {
       if (option.id != activeStylesheetId) {
         continue;
       }
-      List<_PaletteEntry> palettes = _palettesFor(option);
-      for (_PaletteEntry palette in palettes) {
+      List<KBPaletteOption> palettes = option.resolvedPalettes;
+      for (KBPaletteOption palette in palettes) {
         if (identical(palette.stylesheet, stylesheet)) {
           return palette.id;
         }
       }
       return palettes.first.id;
     }
-    return _PaletteEntry.defaultId;
-  }
-
-  List<_PaletteEntry> _palettesFor(KBStylesheetOption option) {
-    if (option.palettes.isEmpty) {
-      return <_PaletteEntry>[
-        _PaletteEntry(
-          id: _PaletteEntry.defaultId,
-          label: option.label,
-          stylesheet: option.stylesheet,
-        ),
-      ];
-    }
-    List<_PaletteEntry> result = <_PaletteEntry>[];
-    for (KBPaletteOption palette in option.palettes) {
-      result.add(
-        _PaletteEntry(
-          id: palette.id,
-          label: palette.label,
-          stylesheet: palette.stylesheet,
-        ),
-      );
-    }
-    return result;
+    return KBPaletteOption.defaultId;
   }
 
   static String rewriteAssetUrlsForBasePath(String css, String assetPrefix) {
@@ -645,7 +622,7 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
         continue;
       }
       if (option.palettes.isEmpty) {
-        return _PaletteEntry.defaultId;
+        return KBPaletteOption.defaultId;
       }
       for (KBPaletteOption palette in option.palettes) {
         if (identical(palette.stylesheet, widget.stylesheet)) {
@@ -654,7 +631,7 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
       }
       return option.palettes.first.id;
     }
-    return _PaletteEntry.defaultId;
+    return KBPaletteOption.defaultId;
   }
 
   String? _activePaletteBodyClass(
@@ -684,18 +661,4 @@ class _ThemedKBPageState extends State<ThemedKBPage> {
     // Component interactivity scripts from arcane_jaspr
     yield const ArcaneScriptsComponent();
   }
-}
-
-class _PaletteEntry {
-  static const String defaultId = 'default';
-
-  final String id;
-  final String label;
-  final ArcaneStylesheet stylesheet;
-
-  const _PaletteEntry({
-    required this.id,
-    required this.label,
-    required this.stylesheet,
-  });
 }

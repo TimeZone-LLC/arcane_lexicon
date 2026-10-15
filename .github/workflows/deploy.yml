@@ -7,6 +7,7 @@ on:
       - 'example/**'
       - 'lib/**'
       - 'scripts/**'
+      - 'test/**'
       - 'tool/**'
       - 'pubspec.yaml'
       - '.github/workflows/deploy.yml'
@@ -73,6 +74,10 @@ jobs:
         working-directory: tool/browser_policy
         run: npm run test:build
 
+      - name: Verify navigation lifecycle
+        working-directory: tool/browser_policy
+        run: npm run test:navigation
+
       - name: Enforce browser design policy
         shell: bash
         run: |
@@ -82,6 +87,8 @@ jobs:
             --directory "$audit_root" &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
+          ARCANE_LEXICON_DOCS_URL=http://127.0.0.1:41738/arcane_lexicon \
+            npm --prefix tool/browser_policy run test:themes
           ARCANE_LEXICON_DOCS_URL=http://127.0.0.1:41738/arcane_lexicon \
             npm --prefix tool/browser_policy run audit
 

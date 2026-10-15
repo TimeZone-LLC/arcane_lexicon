@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-10-15
+
+### Added
+
+- Ascii is available in the example site's stylesheet selector and the CLI's
+  `create --theme ascii` starter, including its shared renderer dependency.
+
+### Changed
+
+- Requires Arcane Jaspr 6.0.0.
+
+### Fixed
+
+- Stylesheets without named palettes activate their default CSS when selected.
+- Landing-page content keeps long code blocks inside the mobile viewport.
+- Navigation mounts interactive Jaspr components through document loads while
+  preserving static-page soft navigation, hash links, and browser history.
+
 ## [3.0.0] - 2026-09-23
 
 ### Changed

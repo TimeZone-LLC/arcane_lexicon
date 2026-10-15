@@ -9,6 +9,10 @@ dependency_overrides:
   arcane_jaspr:
     git:
       url: https://github.com/ArcaneArts/arcane_jaspr.git
+  arcane_jaspr_ascii:
+    git:
+      url: https://github.com/ArcaneArts/arcane_jaspr.git
+      path: packages/arcane_jaspr_ascii
   arcane_jaspr_shadcn:
     git:
       url: https://github.com/ArcaneArts/arcane_jaspr.git

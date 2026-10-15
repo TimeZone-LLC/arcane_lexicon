@@ -52,6 +52,7 @@ Add pages by adding markdown files under `content/`. Folders become sidebar sect
 ```bash
 arcane_lexicon create my_docs
 arcane_lexicon create docs --name "Acme Docs" --theme neon
+arcane_lexicon create docs --name "Acme Docs" --theme ascii
 arcane_lexicon serve
 arcane_lexicon build --dart-define=BASE_URL=/docs
 arcane_lexicon clean
@@ -65,10 +66,16 @@ arcane_lexicon doctor
 | `--name <site name>` | Human-readable site name. Defaults to title-cased project name. |
 | `--description <text>` | Site description used in generated config/frontmatter. |
 | `--output-dir <path>` | Directory to create. Defaults to `<project_name>`. |
-| `--theme <theme>` | `shadcn`, `neon`, or `neubrutalism`. Defaults to `shadcn`. |
+| `--theme <theme>` | `shadcn`, `neon`, `neubrutalism`, or `ascii`. Defaults to `shadcn`. |
 | `--force` | Allow merging starter files into an existing directory. Existing files are preserved unless `--force` is set. |
 
 ## Manual Setup
+
+Arcane Lexicon 4 requires Arcane Jaspr 6. The Ascii theme provides paper and ink
+palettes, ruled datum lines, and text motion that respects reduced-motion preferences.
+Choose Ascii in the example site's stylesheet selector or create a site with
+`--theme ascii`; its starter resolves the core and shared Shadcn renderer from
+the same Git checkout.
 
 For local development, keep the site, `arcane_lexicon`, and `arcane_jaspr`
 checkouts in the same parent directory. Resolve the core and renderer from that

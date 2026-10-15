@@ -4,7 +4,7 @@
 # Dependencies that need switching
 dependencies:
   - package: arcane_jaspr
-    local_path: /Users/brianfopiano/Developer/RemoteGit/ArcaneArts/arcane_jaspr
+    local_path: ../arcane_jaspr
     git_url: https://github.com/ArcaneArts/arcane_jaspr.git
 
 # Pubspec files to process and which dependencies to switch in each

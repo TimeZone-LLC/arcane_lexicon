@@ -7,7 +7,7 @@ tags:
   - configuration
   - getting-started
 author: Arcane Arts
-date: 2026-03-03
+date: 2026-10-15
 ---
 
 Arcane Lexicon configuration is split across:
@@ -73,6 +73,11 @@ component: ExampleDemo
 See [Frontmatter Reference](/reference/frontmatter).
 
 ## Theme Selection
+
+The example site's selector includes Ascii, Shadcn, Neon, and NeuBrutalism.
+For Ascii, import `package:arcane_jaspr_ascii/arcane_jaspr_ascii.dart` and pass
+`const AsciiStylesheet()` as the stylesheet. Its installation paths are listed
+in the [theming reference](/reference/theming).
 
 ```dart
 KnowledgeBaseApp.create(

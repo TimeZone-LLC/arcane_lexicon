@@ -51,7 +51,7 @@ Create options:
   --name <site name>       Human-readable site name. Defaults to title-cased project name.
   --description <text>     Site description.
   --output-dir <path>      Directory to create. Defaults to <project_name>.
-  --theme <theme>          shadcn, neon, or neubrutalism. Defaults to shadcn.
+  --theme <theme>          shadcn, neon, neubrutalism, or ascii. Defaults to shadcn.
   --force                  Allow writing into an existing directory.
 
 Examples:
@@ -301,7 +301,8 @@ class _UsageException implements Exception {
 enum _StarterTheme {
   shadcn,
   neon,
-  neubrutalism;
+  neubrutalism,
+  ascii;
 
   static _StarterTheme parse(String value) {
     switch (value.toLowerCase()) {
@@ -314,9 +315,11 @@ enum _StarterTheme {
       case 'neubrutalism':
       case 'neubrutalism.yellow':
         return _StarterTheme.neubrutalism;
+      case 'ascii':
+        return _StarterTheme.ascii;
       default:
         throw _UsageException(
-          'Unknown theme `$value`. Use shadcn, neon, or neubrutalism.',
+          'Unknown theme `$value`. Use shadcn, neon, neubrutalism, or ascii.',
         );
     }
   }
@@ -329,6 +332,8 @@ enum _StarterTheme {
         return 'arcane_jaspr_neon';
       case _StarterTheme.neubrutalism:
         return 'arcane_jaspr_neubrutalism';
+      case _StarterTheme.ascii:
+        return 'arcane_jaspr_ascii';
     }
   }
 
@@ -342,6 +347,8 @@ enum _StarterTheme {
         return 'NeonStylesheet(theme: NeonTheme.green)';
       case _StarterTheme.neubrutalism:
         return 'NeubrutalismStylesheet(theme: NeubrutalismTheme.yellow)';
+      case _StarterTheme.ascii:
+        return 'AsciiStylesheet()';
     }
   }
 
@@ -353,6 +360,8 @@ enum _StarterTheme {
         return 'packages/arcane_jaspr_neon';
       case _StarterTheme.neubrutalism:
         return 'packages/arcane_jaspr_neubrutalism';
+      case _StarterTheme.ascii:
+        return 'packages/arcane_jaspr_ascii';
     }
   }
 }
@@ -396,6 +405,13 @@ class _StarterWriter {
   String _pubspec() {
     String themePackage = options.theme.packageName;
     String themePath = options.theme.gitPath;
+    String sharedRendererOverride = options.theme == _StarterTheme.ascii
+        ? '''  arcane_jaspr_shadcn:
+    git:
+      url: https://github.com/ArcaneArts/arcane_jaspr.git
+      path: packages/arcane_jaspr_shadcn
+'''
+        : '';
     return '''name: ${options.projectName}
 description: ${_yamlSingleQuote(options.description)}
 version: 0.1.0
@@ -430,7 +446,7 @@ dependency_overrides:
   arcane_jaspr:
     git:
       url: https://github.com/ArcaneArts/arcane_jaspr.git
-
+$sharedRendererOverride
 scripts:
   serve: dart run arcane_lexicon serve
   build: dart run arcane_lexicon build
