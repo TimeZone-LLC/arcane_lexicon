@@ -32,11 +32,17 @@ class ReadingTimeExtension implements PageExtension {
         // Remove images
         .replaceAll(RegExp(r'!\[.*?\]\(.*?\)'), '')
         // Remove links (keep text)
-        .replaceAll(RegExp(r'\[([^\]]+)\]\([^)]+\)'), r'$1')
+        .replaceAllMapped(
+          RegExp(r'\[([^\]]+)\]\([^)]+\)'),
+          (Match match) => match.group(1)!,
+        )
         // Remove headers markers
         .replaceAll(RegExp(r'^#+\s*', multiLine: true), '')
         // Remove bold/italic markers
-        .replaceAll(RegExp(r'[*_]{1,2}([^*_]+)[*_]{1,2}'), r'$1')
+        .replaceAllMapped(
+          RegExp(r'[*_]{1,2}([^*_]+)[*_]{1,2}'),
+          (Match match) => match.group(1)!,
+        )
         // Remove HTML tags
         .replaceAll(RegExp(r'<[^>]+>'), '');
 

@@ -6,6 +6,8 @@
 
 import 'package:jaspr/client.dart';
 
+import 'package:arcane_lexicon_example/ascii_motion_demo.dart'
+    deferred as _ascii_motion_demo;
 import 'package:jaspr_content/components/_internal/tab_bar.dart'
     deferred as _tab_bar;
 
@@ -27,6 +29,10 @@ import 'package:jaspr_content/components/_internal/tab_bar.dart'
 /// ```
 ClientOptions get defaultClientOptions => ClientOptions(
   clients: {
+    'ascii_motion_demo': ClientLoader(
+      (p) => _ascii_motion_demo.AsciiMotionDemo(),
+      loader: _ascii_motion_demo.loadLibrary,
+    ),
     'jaspr_content:tab_bar': ClientLoader(
       (p) => _tab_bar.TabBar(
         initialValue: p['initialValue'] as String,

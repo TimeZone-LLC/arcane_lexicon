@@ -430,6 +430,21 @@ class DefaultKnowledgeBaseRenderers extends KnowledgeBaseRenderers {
                   'kb-section-divider${mobileHeaderOnly ? ' kb-sidebar-divider-mobile-only' : ''}',
               <Widget>[],
             ),
+          if (!data.showSidebarControls &&
+              ((data.config.stylesheetSwitcherEnabled &&
+                      data.stylesheetOptions.length > 1) ||
+                  (data.config.paletteSwitcherEnabled &&
+                      activePalettes(data).length > 1)))
+            dom.div(classes: 'kb-mobile-style-controls', <Widget>[
+              dom.div(classes: 'kb-style-switcher', <Widget>[
+                if (data.config.stylesheetSwitcherEnabled &&
+                    data.stylesheetOptions.length > 1)
+                  stylesheetSelect(data),
+                if (data.config.paletteSwitcherEnabled &&
+                    activePalettes(data).length > 1)
+                  paletteSelect(data),
+              ]),
+            ]),
           dom.nav(classes: 'sidebar-nav $prefix-kb-sidebar-nav', <Widget>[
             if (data.manifest.visibleItems.isNotEmpty)
               fixedSection(
@@ -572,7 +587,9 @@ class DefaultKnowledgeBaseRenderers extends KnowledgeBaseRenderers {
           styles: treeRowStyles(data, depth, isFolder: false),
           <Widget>[
             if (item.icon != null) icon(data, item.icon!),
-            Widget.text(item.title),
+            dom.span(classes: 'sidebar-link-label', <Widget>[
+              Widget.text(item.title),
+            ]),
           ],
         ),
       ],

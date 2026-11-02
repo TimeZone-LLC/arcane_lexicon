@@ -24,3 +24,7 @@ This section contains examples of built-in markdown rendering, navigation UX, an
 
 - [Rich Markdown Blocks](/features/rich-markdown)
 - [Tags Metadata](/features/tags)
+
+## Theme Motion
+
+- [Ascii Motion](/features/ascii-motion)

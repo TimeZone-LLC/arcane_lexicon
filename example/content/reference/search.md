@@ -61,7 +61,7 @@ Entry payload includes:
 - `category`
 - `description` (when available)
 - `keywords` (tags/path-derived)
-- `excerpt` (truncated markdown text)
+- `excerpt` (truncated Markdown text; link labels and emphasized words are preserved without their formatting)
 - `icon`
 
 This file is useful for external search integrations or custom client search implementations.

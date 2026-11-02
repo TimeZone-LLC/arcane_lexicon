@@ -11,6 +11,7 @@ import 'package:arcane_lexicon/arcane_lexicon.dart' hide runApp;
 import 'package:jaspr/server.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
+import 'ascii_motion_demo.dart';
 import 'main.server.options.dart';
 
 const ArcaneStylesheet shadcnStylesheet = ShadcnStylesheet(
@@ -243,6 +244,8 @@ Future<void> main() async {
     ),
     stylesheet: selectedStylesheet,
     stylesheetOptions: stylesheetOptions,
+    demoBuilder: (String componentType) =>
+        componentType == 'AsciiMotion' ? const AsciiMotionDemo() : null,
   );
 
   if (const bool.fromEnvironment('jaspr.flags.release')) {

@@ -127,3 +127,98 @@ textarea {
 .kb-back-to-top:hover {
   color: var(--foreground);
 }
+
+.lexicon-ascii-demo {
+  container: lexicon-ascii / inline-size;
+}
+
+.lexicon-ascii-preview {
+  display: none;
+}
+
+#arcane-root.arcane-theme-ascii .lexicon-ascii-preview {
+  display: block;
+}
+
+#arcane-root.arcane-theme-ascii .lexicon-ascii-theme-hint {
+  display: none;
+}
+
+.lexicon-ascii-composition {
+  display: grid;
+  align-items: center;
+  gap: 1.5rem;
+  padding-block: 2rem 1rem;
+}
+
+.lexicon-ascii-copy {
+  min-width: 0;
+}
+
+#arcane-root.arcane-theme-ascii .lexicon-ascii-title {
+  margin: 0;
+  max-width: 9ch;
+  font-size: clamp(2.5rem, 7cqi, 4.25rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.lexicon-ascii-description {
+  max-width: 31ch;
+  margin: 1.25rem 0;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+
+.lexicon-ascii-caption,
+.lexicon-ascii-motion-status,
+.lexicon-ascii-preference {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.lexicon-ascii-orbit {
+  position: relative;
+  width: min(100%, 23rem);
+  justify-self: center;
+}
+
+.lexicon-ascii-orbit-label {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: var(--background);
+  padding: 0.25rem;
+  font-size: clamp(2rem, 6cqi, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+}
+
+.lexicon-ascii-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 1rem;
+  border-block: 1px solid var(--border);
+}
+
+.lexicon-ascii-motion-status {
+  color: var(--muted-foreground);
+}
+
+.lexicon-ascii-preference {
+  margin: 0.75rem 0 0;
+  color: var(--muted-foreground);
+}
+
+@container lexicon-ascii (min-width: 38rem) {
+  .lexicon-ascii-composition {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    padding-block: 3rem 2rem;
+  }
+}

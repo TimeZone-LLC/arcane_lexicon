@@ -5,15 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## x.x.x
+
+### Fixed
+
+- Search excerpts and reading-time counts preserve link labels and emphasized words when removing Markdown formatting.
+
+- Phone headers keep full-size controls and place stylesheet selectors in the navigation drawer.
+- Sidebar search fills the drawer below the sticky header, and desktop navigation no longer adds the header offset twice.
+- Wrapped navigation labels align beside their icons.
+
 ## [4.0.0] - 2026-10-15
 
 ### Added
 
+- A live Ascii motion example with orbit, entrance, datum, and text components,
+  plus pause and replay controls.
 - Ascii is available in the example site's stylesheet selector and the CLI's
   `create --theme ascii` starter, including its shared renderer dependency.
 
 ### Changed
 
+- Ascii documentation reflects its proportional typography, paper and ink
+  palette, and smooth motion components.
 - Requires Arcane Jaspr 6.0.0.
 
 ### Fixed

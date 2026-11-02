@@ -11,6 +11,8 @@ dependencies:
   web: ^1.1.1
   arcane_lexicon:
     path: ../
+  arcane_jaspr:
+    path: ../../arcane_jaspr
   arcane_jaspr_ascii:
     path: ../../arcane_jaspr/packages/arcane_jaspr_ascii
   arcane_jaspr_shadcn:

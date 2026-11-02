@@ -71,8 +71,11 @@ arcane_lexicon doctor
 
 ## Manual Setup
 
-Arcane Lexicon 4 requires Arcane Jaspr 6. The Ascii theme provides paper and ink
-palettes, ruled datum lines, and text motion that respects reduced-motion preferences.
+Arcane Lexicon 4 requires Arcane Jaspr 6. The Ascii theme pairs paper and ink
+palettes with proportional type, monospaced labels, and fine datum lines.
+Its orbit and entrance components add smooth motion while respecting
+reduced-motion preferences. The example's **Features / Ascii Motion** page
+includes a live preview with pause and replay controls.
 Choose Ascii in the example site's stylesheet selector or create a site with
 `--theme ascii`; its starter resolves the core and shared Shadcn renderer from
 the same Git checkout.

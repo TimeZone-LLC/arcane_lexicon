@@ -36,10 +36,13 @@ Future<void> main() async {
 
 ### AsciiStylesheet
 
-Ascii uses paper and ink palettes, monospaced labels, ruled datum lines, and
-character-based text motion. Its controls share the standard Arcane component
-API, and animations respect the system reduced-motion preference. Select
-Ascii in this site's stylesheet menu to preview it.
+Ascii uses paper and ink palettes, proportional headings and body text,
+monospaced labels, and fine datum lines. Smooth entrances and slow line orbits
+provide motion without moving the reading surface. Its controls share the
+standard Arcane component API, and animations respect the system
+reduced-motion preference. Select Ascii in this site's stylesheet menu, then
+open [Ascii Motion](/features/ascii-motion) for the live preview and component
+examples.
 
 Create a site with its dependencies already configured:
 

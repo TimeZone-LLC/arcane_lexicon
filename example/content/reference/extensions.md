@@ -81,7 +81,7 @@ Adds:
 - `readingTime`
 - `wordCount`
 
-Default reading speed is `200` WPM.
+Default reading speed is `200` WPM. Link labels and emphasized text contribute their full word counts; formatting markers and link URLs do not.
 
 ```dart
 KnowledgeBaseApp.create(

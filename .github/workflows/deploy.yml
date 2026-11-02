@@ -90,6 +90,8 @@ jobs:
           ARCANE_LEXICON_DOCS_URL=http://127.0.0.1:41738/arcane_lexicon \
             npm --prefix tool/browser_policy run test:themes
           ARCANE_LEXICON_DOCS_URL=http://127.0.0.1:41738/arcane_lexicon \
+            npm --prefix tool/browser_policy run test:layout
+          ARCANE_LEXICON_DOCS_URL=http://127.0.0.1:41738/arcane_lexicon \
             npm --prefix tool/browser_policy run audit
 
       - name: Add .nojekyll

@@ -11,6 +11,8 @@ import 'package:arcane_jaspr/component/collection/infinite_carousel.dart'
     as _infinite_carousel;
 import 'package:arcane_jaspr/component/form/field.dart' as _field;
 import 'package:arcane_jaspr/component/view/avatar.dart' as _avatar;
+import 'package:arcane_lexicon_example/ascii_motion_demo.dart'
+    as _ascii_motion_demo;
 import 'package:jaspr_content/components/_internal/tab_bar.dart' as _tab_bar;
 import 'package:jaspr_content/components/tabs.dart' as _tabs;
 
@@ -33,6 +35,8 @@ import 'package:jaspr_content/components/tabs.dart' as _tabs;
 ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
   clients: {
+    _ascii_motion_demo.AsciiMotionDemo:
+        ClientTarget<_ascii_motion_demo.AsciiMotionDemo>('ascii_motion_demo'),
     _tab_bar.TabBar: ClientTarget<_tab_bar.TabBar>(
       'jaspr_content:tab_bar',
       params: __tab_barTabBar,
